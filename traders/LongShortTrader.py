@@ -72,9 +72,10 @@ class LongShortTrader:
         close = float(msg["k"]["c"])
         volume = float(msg["k"]["v"])
         complete = msg["k"]["x"]
-        print(f"Time {start_time} | Close {close}")
+        print(f"Time {start_time} | Close {close} | Complete {msg['k']['x']} | Position {self.position}")
 
         # stop trading session
+        '''
         if self.trades >= 5:  # stop stream after 5 trades
             self.twm.stop()
             if self.position == 1:
@@ -87,9 +88,9 @@ class LongShortTrader:
                 self.position = 0
             else:
                 print("STOP")
-
+        '''
         # print out
-        print(".", end="", flush=True)  # just print something to get a feedback (everything OK)
+        # print(".", end="", flush=True)  # just print something to get a feedback (everything OK)
 
         # feed df (add new bar / update latest bar)
         self.data.loc[start_time] = [first, high, low, close, volume, complete]
@@ -120,6 +121,7 @@ class LongShortTrader:
         # ***********************************************************************
 
         self.prepared_data = df.copy()
+
 
     def execute_trades(self):
         if self.prepared_data["position"].iloc[-1] == 1:  # if position is long -> go/stay long
@@ -181,6 +183,9 @@ class LongShortTrader:
         print("{} | {}".format(time, going))
         print("{} | Base_Units = {} | Quote_Units = {} | Price = {} ".format(time, base_units, quote_units, price))
         print("{} | Profit = {} | CumProfits = {} ".format(time, real_profit, self.cum_profits))
+        print(f"Returns {self.prepared_data['returns'].iloc[-1]}")
+        print(f"Volume change {self.prepared_data['vol_ch'].iloc[-1]}")
+        print(f"Position {self.prepared_data['position'].iloc[-1]}")
         print(100 * "-" + "\n")
 
 

@@ -70,7 +70,7 @@ class LongShortSMATrader:
         close = float(msg["k"]["c"])
         volume = float(msg["k"]["v"])
         complete = msg["k"]["x"]
-        print(f"Time {start_time} | Close {close} | Position {self.position}")
+        print(f"Time {start_time} | Close {close} | Complete {complete} | Position {self.position}")
 
         # stop trading session
         if self.trades >= 5:  # stop stream after 5 trades
@@ -87,7 +87,7 @@ class LongShortSMATrader:
                 print("STOP")
 
         # print out
-        print(".", end="", flush=True)  # just print something to get a feedback (everything OK)
+        #print(".", end="", flush=True)  # just print something to get a feedback (everything OK)
 
         # feed df (add new bar / update latest bar)
         self.data.loc[start_time] = [first, high, low, close, volume, complete]
@@ -180,6 +180,9 @@ class LongShortSMATrader:
         print("{} | {}".format(time, going))
         print("{} | Base_Units = {} | Quote_Units = {} | Price = {} ".format(time, base_units, quote_units, price))
         print("{} | Profit = {} | CumProfits = {} ".format(time, real_profit, self.cum_profits))
+        print(f"SMAS {self.prepared_data['SMA_S'].iloc[-1]}")
+        print(f"SMAL  {self.prepared_data['SMA_L'].iloc[-1]}")
+        print(f"SMAM {self.prepared_data['SMA_M'].iloc[-1]}")
         print(100 * "-" + "\n")
 
 

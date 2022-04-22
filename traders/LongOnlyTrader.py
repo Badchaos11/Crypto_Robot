@@ -11,7 +11,7 @@ from secrets import client
 
 class LongOnlyTrader:
 
-    def __init__(self, symbol, bar_length, return_thresh, volume_thresh, units, position):
+    def __init__(self, symbol, bar_length, return_thresh, volume_thresh, units, position=0):
         self.symbol = symbol
         self.bar_length = bar_length
         self.available_intervals = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d",
@@ -67,8 +67,8 @@ class LongOnlyTrader:
         close = float(msg["k"]["c"])
         volume = float(msg["k"]["v"])
         complete = msg["k"]["x"]
-        print(f"Time {start_time} | Close {close}")
-        print(".", end="", flush=True)
+        print(f"Time {start_time} | Close {close} | Complete {complete} | Position {self.position}")
+        #print(".", end="", flush=True)
 
         self.data.loc[start_time] = [first, high, low, close, volume, complete]
 
@@ -134,6 +134,9 @@ class LongOnlyTrader:
         print("{} | {}".format(time, going))
         print("{} | Base_Units = {} | Quote_Units = {} | Price = {} ".format(time, base_units, quote_units, price))
         print("{} | Profit = {} | CumProfits = {} ".format(time, real_profit, self.cum_profits))
+        print(f"Returns {self.prepare_data['returns'].iloc[-1]}")
+        print(f"Volume change {self.prepare_data['vol_ch'].iloc[-1]}")
+        print(f"Position {self.prepare_data['position'].iloc[-1]}")
         print(100 * "-" + "\n")
 
 
