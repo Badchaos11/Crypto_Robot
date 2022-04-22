@@ -2,11 +2,11 @@ import pandas as pd
 from binance import ThreadedWebsocketManager, Client
 import logging
 import secrets
+from secrets import client
 from binance.exceptions import BinanceAPIException
 
-symbol = 'BTCUSDT'
 
-client = Client(api_key=secrets.api_key, api_secret=secrets.api_secret, tld='com', testnet=True)
+symbol = 'BTCUSDT'
 
 
 def handler_message(msg):
@@ -35,11 +35,10 @@ if __name__ == '__main__':
     #logger.addHandler(logging.StreamHandler())
 
     print('started')
+
     client.get_account()
 
     twm = ThreadedWebsocketManager(api_key=secrets.api_key, api_secret=secrets.api_secret)
     twm.start()
     twm.start_symbol_miniticker_socket(callback=handler_message, symbol=symbol)
     twm.join()
-
-
