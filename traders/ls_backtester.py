@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 from itertools import product
+import matplotlib.pyplot as plt
+
+plt.style.use("seaborn")
 
 
 class Long_Short_Backtester_Futures:
@@ -536,3 +539,16 @@ tester = Long_Short_Backtester(filepath=filepath, symbol=symbol,
                                start=start, end=end, tc=tc)
 
 print(tester.data)
+tester.test_strategy(smas=(sma_s, sma_m, sma_l))
+
+print(tester.results)
+
+tester.optimize_strategy(SMA_S_range=(50, 300, 20),
+                         SMA_M_range=(500, 1500, 30),
+                         SMA_L_range=(2000, 5000, 100),
+                         metric="Multiple")
+
+print(tester.results_overview)
+
+print(tester.results_overview.max())
+print(tester.find_best_strategy())

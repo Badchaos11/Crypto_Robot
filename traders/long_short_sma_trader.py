@@ -189,13 +189,13 @@ class LongShortSMATrader:
 if __name__ == '__main__':
     symbol = "BTCUSDT"
     bar_length = "1m"
-    sma_s = 10
-    sma_m = 20
-    sma_l = 50
+    sma_s = 15
+    sma_m = 50
+    sma_l = 200
     units = 0.001
     position = 0
 
     trader = LongShortSMATrader(symbol=symbol, bar_length=bar_length, sma_s=sma_s, sma_m=sma_m, sma_l=sma_l,
                                 units=units, position=position)
 
-    trader.start_trading(historical_days= 1/24)
+    trader.start_trading(historical_days=4/24)
