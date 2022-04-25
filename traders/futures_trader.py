@@ -190,7 +190,7 @@ if __name__ == '__main__':
     sma_l = 50
     units = 0.001
     position = 0
-    leverage=10
+    leverage = 10
 
     trader = FutureTraderSMA(symbol=symbol, bar_length=bar_length, sma_s=sma_s, sma_m=sma_m, sma_l=sma_l,
                              units=units, position=position, leverage=10)
