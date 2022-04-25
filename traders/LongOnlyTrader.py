@@ -134,6 +134,7 @@ class LongOnlyTrader:
         print("{} | {}".format(time, going))
         print("{} | Base_Units = {} | Quote_Units = {} | Price = {} ".format(time, base_units, quote_units, price))
         print("{} | Profit = {} | CumProfits = {} ".format(time, real_profit, self.cum_profits))
+        print(f"Trade Value for last trade: {order['cummulativeQuoteQty']}")
         print(f"Returns {self.prepare_data['returns'].iloc[-1]}")
         print(f"Volume change {self.prepare_data['vol_ch'].iloc[-1]}")
         print(f"Position {self.prepare_data['position'].iloc[-1]}")
@@ -145,7 +146,7 @@ if __name__ == '__main__':
     bar_length = "1m"
     return_thresh = 0
     volume_thresh = [-3, 3]
-    units = 0.01
+    units = 0.001
     position = 0
 
     trader = LongOnlyTrader(symbol=symbol, bar_length=bar_length, return_thresh=return_thresh,

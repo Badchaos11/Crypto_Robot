@@ -127,7 +127,6 @@ class FutureTraderSMA:
         self.prepared_data = data.copy()
 
     def execute_trades(self):
-        print(f'')
         if self.prepared_data["position"].iloc[-1] == 1:  # if position is long -> go/stay long
             if self.position == 0:
                 order = client.futures_create_order(symbol=self.symbol, side="BUY", type="MARKET", quantity=self.units)

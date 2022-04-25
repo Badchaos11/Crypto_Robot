@@ -71,7 +71,7 @@ class LongShortSMATrader:
         volume = float(msg["k"]["v"])
         complete = msg["k"]["x"]
         print(f"Time {start_time} | Close {close} | Complete {complete} | Position {self.position}")
-
+        '''
         # stop trading session
         if self.trades >= 5:  # stop stream after 5 trades
             self.twm.stop()
@@ -85,7 +85,7 @@ class LongShortSMATrader:
                 self.position = 0
             else:
                 print("STOP")
-
+        '''
         # print out
         #print(".", end="", flush=True)  # just print something to get a feedback (everything OK)
 
@@ -180,6 +180,7 @@ class LongShortSMATrader:
         print("{} | {}".format(time, going))
         print("{} | Base_Units = {} | Quote_Units = {} | Price = {} ".format(time, base_units, quote_units, price))
         print("{} | Profit = {} | CumProfits = {} ".format(time, real_profit, self.cum_profits))
+        print(f"Trade Value for last trade: {order['cummulativeQuoteQty']}")
         print(f"SMAS {self.prepared_data['SMA_S'].iloc[-1]}")
         print(f"SMAL  {self.prepared_data['SMA_L'].iloc[-1]}")
         print(f"SMAM {self.prepared_data['SMA_M'].iloc[-1]}")
@@ -189,13 +190,13 @@ class LongShortSMATrader:
 if __name__ == '__main__':
     symbol = "BTCUSDT"
     bar_length = "1m"
-    sma_s = 15
-    sma_m = 50
-    sma_l = 200
+    sma_s = 10
+    sma_m = 20
+    sma_l = 50
     units = 0.001
     position = 0
 
     trader = LongShortSMATrader(symbol=symbol, bar_length=bar_length, sma_s=sma_s, sma_m=sma_m, sma_l=sma_l,
                                 units=units, position=position)
 
-    trader.start_trading(historical_days=4/24)
+    trader.start_trading(historical_days=1/24)
