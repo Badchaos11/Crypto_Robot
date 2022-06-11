@@ -1,8 +1,0 @@
-'''
-    client.get_account()
-
-    twm = ThreadedWebsocketManager(api_key=secrets.api_key, api_secret=secrets.api_secret)
-    twm.start()
-    twm.start_symbol_miniticker_socket(callback=handler_message, symbol=symbol)
-    twm.join()
-'''
